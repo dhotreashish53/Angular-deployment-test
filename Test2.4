@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int n = Integer.parseInt(br.readLine().trim()); // size of array
+        String nq[] = br.readLine().split(" ");
+        int q = Integer.parseInt(nq[0]); // number of queries
+        // the second number in this line (nq[1]) is not used, but keeping it
+        int ignore = Integer.parseInt(nq[1]);
+        
+        int arr[] = new int[n]; // default 0
+        
+        StringBuilder out = new StringBuilder();
+        
+        for(int i=0; i<q; i++){
+            String p[] = br.readLine().split(" ");
+            int t = Integer.parseInt(p[0]);
+            
+            if(t == 1){
+                int idx = Integer.parseInt(p[1]); // 0-based
+                int val = Integer.parseInt(p[2]);
+                arr[idx] = val;
+            }
+            else if(t == 2){
+                int l = Integer.parseInt(p[1]);
+                int r = Integer.parseInt(p[2]);
+                int k = Integer.parseInt(p[3]);
+                int cnt = 0;
+                for(int j = l; j <= r; j++){
+                    if(arr[j] % k == 0) cnt++;
+                }
+                out.append(cnt).append("\n");
+            }
+        }
+        System.out.print(out.toString());
+    }
+}
