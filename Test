@@ -1,0 +1,42 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String line = br.readLine();
+        if (line == null || line.trim().isEmpty()) return;
+
+        int n = Integer.parseInt(line.trim());
+        if (n < 2) {
+            // Nothing to print if there are no primes ≤ n
+            return;
+        }
+
+        boolean[] isComposite = new boolean[n + 1];
+        isComposite[0] = true;
+        isComposite[1] = true;
+
+        // Sieve of Eratosthenes
+        for (int i = 2; (long) i * i <= n; i++) {
+            if (!isComposite[i]) {
+                for (long j = (long) i * i; j <= n; j += i) {
+                    isComposite[(int) j] = true;
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (int i = 2; i <= n; i++) {
+            if (!isComposite[i]) {
+                if (!first) sb.append(' ');
+                sb.append(i);
+                first = false;
+            }
+        }
+
+        System.out.print(sb.toString());
+    }
+}
